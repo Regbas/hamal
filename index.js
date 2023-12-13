@@ -159,10 +159,9 @@ async function generateMessage() {
   const givenMessage = document.getElementById("givenMessage").value;
   const actionInfo = actionToRepresentation[neededAction];
 
-  // Copy the text inside the text field
-  await navigator.clipboard.writeText(
-    await genMessage(neededAction, actionInfo, givenMessage)
-  );
+  let message = await genMessage(neededAction, actionInfo, givenMessage);
+
+  await copyTextToClipboard(message);
 
   document.getElementById("messageStatus").innerHTML =
   "ההודעה הועתקה";
@@ -224,25 +223,14 @@ async function shortenUrl(longUrl) {
 }
 
 async function copyTextToClipboard(text) {
-  // hack to copy to clipboard
+  const textBlob = new Blob([text], { type: "text/plain" });
+  const textItem = new ClipboardItem({
+    "text/plain": textBlob
+  });
 
-  try {
-    const tempInput = document.createElement("textarea");
-    tempInput.value = text;
-    document.body.appendChild(tempInput);
+  await navigator.clipboard.write([textItem]);
 
-    // Focus on the temporary input element
-    tempInput.focus();
-    tempInput.select();
 
-    // Use document.execCommand to copy to clipboard
-    document.execCommand("copy");
-
-    // Remove the temporary input element
-    document.body.removeChild(tempInput);
-  } catch (error) {
-    throw new Error("Error copying to clipboard: " + error.message);
-  }
 }
 
 async function copyDefaultTextToClipboard() {
