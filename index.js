@@ -159,9 +159,11 @@ async function generateMessage() {
   const givenMessage = document.getElementById("givenMessage").value;
   const actionInfo = actionToRepresentation[neededAction];
 
-  let message = await genMessage(neededAction, actionInfo, givenMessage);
-
-  await copyTextToClipboard(message);
+  const text = new ClipboardItem({
+    "text/plain": genMessage(neededAction, actionInfo, givenMessage)
+        .then(text => new Blob([text], { type: "text/plain" }))
+  })
+  await navigator.clipboard.write([text])
 
   document.getElementById("messageStatus").innerHTML =
   "ההודעה הועתקה";
@@ -222,26 +224,17 @@ async function shortenUrl(longUrl) {
   }
 }
 
-async function copyTextToClipboard(text) {
-  const textBlob = new Blob([text], { type: "text/plain" });
-  const textItem = new ClipboardItem({
-    "text/plain": textBlob
-  });
-
-  await navigator.clipboard.write([textItem]);
-
-
-}
 
 async function copyDefaultTextToClipboard() {
   try {
-    const defaultText = await genMessage(
-      "goToShelter",
-      actionToRepresentation.goToShelter,
-      actionToRepresentation.goToShelter.description
-    );
-
-    await copyTextToClipboard(defaultText);
+    const defaultText = new ClipboardItem({
+      "text/plain": genMessage(
+          "goToShelter",
+          actionToRepresentation.goToShelter,
+          actionToRepresentation.goToShelter.description
+      ).then(text => new Blob([text], { type: "text/plain" }))
+    })
+    await navigator.clipboard.write([defaultText])
 
     document.getElementById("messageStatus").innerHTML =
       "ההודעה הדיפולטיבית הועתקה, לחץ על 'צור והעתק' ליצירת הודעה אחרת והעתקתה";
