@@ -1,27 +1,27 @@
 const actionToRepresentation = {
   goToShelter: {
     icon: "🚨",
-    hebrew: "חירום - להיכנס לממד",
+    hebrew: "חירום - להיכנס לחדר ביטחון",
     description:
       "נא להיכנס למרחבים מוגנים ולסגור דלתות בתים.\n" +
       "נא להמשיך להישמע להנחיות פיקוד העורף\n",
   },
   stayInShelter: {
     icon: "🚨",
-    hebrew: "חירום - להישאר בממד",
+    hebrew: "חירום - להישאר לחדר ביטחון",
     description:
-      "יש להמשיך לשהות בממד עד להודעה חדשה.\n" +
+      "יש להמשיך לשהות בחדר ביטחון עד להודעה חדשה.\n" +
       'אין לצאת מהממד ללא הודעה מפורשת של צח"י\n',
   },
   stayNearByShelter: {
     icon: "📢",
-    hebrew: "ניתן לצאת מהממד",
+    hebrew: "ניתן לצאת מהחדר ביטחון",
     description:
       'ניתן לצאת מן הממ"דים.\n' + "נבקש לעת עתה להישאר בקרבת מרחב מוגן\n",
   },
   ShelterOut: {
     icon: "🆓",
-    hebrew: "להיות בקרבת ממד",
+    hebrew: "להיות בקרבת החדר ביטחון",
     description: "להישאר בקרבת מרחב מוגן",
   },
   friendlyFire: {
